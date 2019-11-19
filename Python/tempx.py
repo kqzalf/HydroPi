@@ -1,9 +1,10 @@
-import os
+#Initialize ds18b20 before running this script for the first time.
+#run the following command in shell.
+#sudo dtoverlay w1-gpio gpiopin=4 pullup=0
+# gpiopin=4 coresponds with header pin #7
+
 import glob
 import time
-
-os.system('modprobe w1-gpio')
-os.system('modprobe w1-therm')
 
 base_dir = '/sys/bus/w1/devices/'
 device_folder = glob.glob(base_dir + '28*')[0]
