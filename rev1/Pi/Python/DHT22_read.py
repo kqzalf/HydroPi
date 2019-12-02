@@ -1,21 +1,13 @@
-#to get the library for this code use...
-#pip3 install adafruit-circuitpython-dht
+# sudo pip3 install Adafruit_DHT
 
-import time
-import board
-import adafruit_dht
- 
-# Initial the dht device, with data pin connected to:
-dhtDevice = adafruit_dht.DHT22(board.D4)
+import Adafruit_DHT
 
-temperature_c = dhtDevice.temperature
-temperature_f = temperature_c * (9 / 5) + 32
-humidity = dhtDevice.humidity
+DHT_SENSOR = Adafruit_DHT.DHT22
+DHT_PIN = 4
 
-time.sleep(2.0)
-print("Temp: {:.1f} F / {:.1f} C    Humidity: {}% "
-	.format(temperature_f, temperature_c, humidity))
+humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
 
-#This device has a high rate of failure, something that reads the...
-#.txt this data is sent through should determine if another read...
-#should be taken with this sensor to fill a data point.
+if humidity is not None and temperature is not None:
+	print("Temp={0:0.1f}*C  Humidity={1:0.1f}%".format(temperature, humidity))
+else:
+	print("Failed to retrieve data from humidity sensor")
