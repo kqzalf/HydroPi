@@ -8,6 +8,8 @@ DHT_PIN = 4
 humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
 
 if humidity is not None and temperature is not None:
-	print("Temp={0:0.1f}*C  Humidity={1:0.1f}%".format(temperature, humidity))
+	podhumidity = round(humidity,1)
+	podtemp = round(temperature,1)
+	print(podhumidity," ",podtemp)
 else:
-	print("Failed to retrieve data from humidity sensor")
+	print("Failed to retrieve data from humidity sensor") 
