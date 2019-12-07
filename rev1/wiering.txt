@@ -20,3 +20,6 @@ cc811
 	wake > 20 (Ground)
 	rst  > 
 	int  > 
+
+use this to get pin numbers
+https://pinout.xyz/
