@@ -1,6 +1,6 @@
 dht22
 	+    > 1 (3v3)
-	out  > 7 (bcm 4)
+	out  > 11 (BCM 17)
 	-    > 6 (ground)
 
 tsl2591
