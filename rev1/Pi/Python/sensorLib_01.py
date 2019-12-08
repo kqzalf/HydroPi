@@ -8,7 +8,7 @@ import board
 import busio
 import adafruit_ccs811
 import adafruit_tsl2591
-import adafruit_dht
+import Adafruit_DHT
 
 # loops to run thrugh before execution of scripts
 waittime = 10
@@ -17,29 +17,25 @@ waittime = 10
 
 # dht22
 def dht22(switch="x"):
-#   import time
-#   import board
-#   import adafruit_dht
+	DHT_SENSOR = Adafruit_DHT.DHT22
+	DHT_PIN = 17
 
- # Initial the dht device, with data pin connected to:
-    dhtDevice = adafruit_dht.DHT22(board.D17)
+	humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
 
-    temperature_c = dhtDevice.temperature
-    temperature_f = temperature_c * (9 / 5) + 32
-    humidity = dhtDevice.humidity
+	if humidity is not None and temperature is not None:
+		podhumidity = round(humidity,1)
+		podtemp = round(temperature,1)
+		
+		if(switch == "t"):
+			return podtemp
+		if(switch == "h"):
+			return podhumidity 
+		
+		print(podhumidity," ",podtemp)
+	else:
+		print("Failed to retrieve data from humidity sensor") 
+	
 
-    time.sleep(2.0)
-    print("Temp: {:.1f} F / {:.1f} C    Humidity: {}% "
-    .format(temperature_f, temperature_c, humidity))
-
-
-    #if humidity is not None and temperature is not None:
-    #podhumidity = round(humidity,1)
-    #podtemp = round(temperature,1)
-    if(switch == "t"):
-        return temperature_c
-    if(switch == "h"):
-        return humidity 
 
 # ccs811 gas sensor
 def ccs811():
@@ -77,45 +73,44 @@ count = 0
 
 # loop
 while (count < waittime):
-    if(count < timebuffer):
-    # exicute code here that we want to run when the script isnt running, warmup scripts and such
-        print('The count is:', count)
-        count = count + 1
-    else:
-    # exicute our script here
-        print("exicute!")
-        
-        #create vars
-        temp = dht22("t")
-        hum = dht22("h")
-        co2 = ccs811()
-        lux = TSL2591("lux")
-        infrared = TSL2591("ir")
-        visible = TSL2591("vis")
-        full_spectrum = TSL2591("full")
-        
-        # dump vars to file
-        f = open("/home/pi/Desktop/test.log","a")
-#       f = open("/var/www/html/logs/test.log","a") #opens file with name of "test.txt"
-        f.write("\n")
-        f.write(str(temp))
-        f.write("*")
-        f.write(str(hum))
-        f.write("*")
-        f.write(str(co2))
-        f.write("*")
-        f.write(str(lux))
-        f.write("*")
-        f.write(str(infrared))
-        f.write("*")
-        f.write(str(visible))
-        f.write("*")
-        f.write(str(full_spectrum))
-        f.close()
-        
-        # reset counter
-        count = 0
-        
+	if(count < timebuffer):
+# exicute code here that we want to run when the script isnt running, warmup scripts and such
+		count = count + 1
+	else:
+# exicute our script here
+		print("exicute!")
+
+		#create vars
+		temp = dht22("t")
+		hum = dht22("h")
+		co2 = ccs811()
+		lux = TSL2591("lux")
+		infrared = TSL2591("ir")
+		visible = TSL2591("vis")
+		full_spectrum = TSL2591("full")
+
+		# dump vars to file
+		#f = open("/home/pi/Desktop/test.log","a")
+		f = open("/var/www/html/logs/test.log","a") #opens file with name of "test.txt"
+		f.write("\n")
+		f.write(str(temp))
+		f.write("*")
+		f.write(str(hum))
+		f.write("*")
+		f.write(str(co2))
+		f.write("*")
+		f.write(str(lux))
+		f.write("*")
+		f.write(str(infrared))
+		f.write("*")
+		f.write(str(visible))
+		f.write("*")
+		f.write(str(full_spectrum))
+		f.close()
+		time.sleep(10)
+		# reset counter
+		count = 0
+
 # end of code
 print("Good bye!")
 
