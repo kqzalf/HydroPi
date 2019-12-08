@@ -1,25 +1,25 @@
-dht22
-	+    > 1 (3v3)
-	out  > 11 (BCM 17)
-	-    > 6 (ground)
+AM2302(DHT22)
+	+    > 1 (3V3)
+	OUT  > 11 (BCM 17)
+	-    > 6 (GROUND)
 
-tsl2591
-	vin  > 4 (5v Power)
-	gnd  > 6 (Ground)
-	3vo  > 
-	int  > 
-	sda  > 3 (SDA thrugh harness)
-	scl  > 5 (SCL thrugh harness)
+TSL2591
+	VIN  > 2 (5V POWER)
+	GND  > 6 (GROUND)
+	3VO  > 
+	INT  > 
+	SDA  > 3 (SDA THRUGH HARNESS)
+	SCL  > 5 (SCL THRUGH HARNESS)
 	
-cc811
-	vin  > 2  (5v Power)
-	3v3  > 
-	gnd  > 14 (Ground)
-	sda  > 3  (SDA thrugh harness)
-	scl  > 5  (SCL thrugh harness)
-	wake > 20 (Ground)
-	rst  > 
-	int  > 
+CC811
+	VIN  > 4  (5V POWER)
+	3V3  > 
+	GND  > 14 (GROUND)
+	SDA  > 3  (SDA THRUGH HARNESS)
+	SCL  > 5  (SCL THRUGH HARNESS)
+	WAKE > 20 (GROUND)
+	RST  > 
+	INT  > 
 
 use this to get pin numbers
 https://pinout.xyz/
