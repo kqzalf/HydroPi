@@ -35,12 +35,13 @@ fclose($fp);
 
 <table>
   <tr>
-    <th>Pod Humidity</th>
     <th>Pod Temp</th>
-    <th>Water Temp</th>
-    <th>PH Level</th>
-    <th>TDS amount</th>
-    <th>Light Amount</th>
+    <th>Pod Humidity</th>
+    <th>Co2 Levels</th>
+    <th>lux</th>
+    <th>ir</th>
+	<th>Visible</th>
+    <th>full spectrum</th>
   </tr>
   <tr>
     <td><?php echo $datavar[0];?></td>
@@ -49,6 +50,7 @@ fclose($fp);
     <td><?php echo $datavar[3];?></td>
     <td><?php echo $datavar[4];?></td>
     <td><?php echo $datavar[5];?></td>
+	<td><?php echo $datavar[6];?></td>
   </tr>
 </table>
 
