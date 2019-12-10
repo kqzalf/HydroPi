@@ -1,41 +1,98 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="scripts/main.css">
-<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-      refreshTable();
-    });
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+$(document).ready(function() {
+	
+	    $("#mainSensors").load("mainSensors.php");
+    var refreshId1 = setInterval(function() {
+        $("#mainSensors").load("mainSensors.php");
+    }, 1000);
+	
+	    $("#auxSensors").load("auxSensors.php");
+    var refreshId2 = setInterval(function() {
+        $("#auxSensors").load("auxSensors.php");
+    }, 1000);
+	
+    $("#getPic").load("getPic.php");
+    var refreshId3 = setInterval(function() {
+        $("#getPic").load("getPic.php");
+    }, 1000);
 
-    function refreshTable(){
-        $('#tableHolder').load("getTable.php", function(){
-           setTimeout(refreshTable, 1000);
-        });
-    }
-</script>
+});
+    </script>
 
-<link rel="stylesheet" type="text/css" href="scripts/view.css">
+<style type="text/css">
+#container{
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#pisensors{
+width: 300px;	
+}
+#auxsensors{
+width: 300px;	
+}
+#buttons{
+width: 600px;	
+}
+#growlog{
+width: 600px;	
+}
+#pipic{
+width: 300px;	
+}
+th{padding: 0px}
 
+table{
+	border="1";
+}
+</style>
 
 </head>
 <body>
 <div id="container">
-<div id="header"><h1>Open Cultivation Tracker</h1></div>
-<div id="body">
+	<table border="1">
+	  <tr>
+		<th valign="top">
+		<div id="mainSensors"></div>
+		<div id="auxSensors"></div>
+	</th>
+		<th><div id="getPic"></div></th>
+	  </tr>
+	  <tr>
+		<td colspan="2"><div id="buttons">
+		<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	<button type="button">Click Me!</button> xx
+	</div>
+	</td>
+	  </tr>
+	  <tr>
+		<td colspan="2">
+		<table id="growlog" border="1">
+		<tr><td colspan="3">Grow Log</td></tr>
+  <tr>
+	<form action="scripts/logSubmit.php" method="post">
+    <th>Name</th>
+    <th><input type="text" name="element_1"></th>
+    <th><input type="submit" value="Submit"></th>
+  </tr>
+  <tr>
+    <td colspan="3"><textarea rows="4" cols="50" name="element_2" style="margin: 0px; width: 592px; height: 200px;"></textarea></td>
+  </tr>
+  </form>
 
-<div id="tableHolder"></div>
-
-<form action="scripts/logSubmit.php" method="post">
-  Name:<br>
-  <input type="text" name="element_1"><br>
-<textarea rows="4" cols="50" name="element_2">
-Enter text here...</textarea><br>
-  <input type="submit" value="Submit">
-</form>
-
-<div id="logdump">
-
-<table>
 <?php 
 
 $filename = "logs/growlog.txt";
@@ -63,13 +120,10 @@ echo "<tr><td>$pieces[1]</td><td>$t[0]</td><td>$t[1]</td></tr><tr><td colspan='3
 fclose($fp);
 ?>
 </table>
-</div> 
-
-
-<div id="footer">Created By Fredrick Bruhn</div>
+		</td>
+	  </tr>
+	</table>
 </div>
+
 </body>
-
-
-
 </html>
