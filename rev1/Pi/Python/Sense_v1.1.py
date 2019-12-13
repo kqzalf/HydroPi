@@ -47,8 +47,8 @@ while (count < waittime):
 
 
         # dump vars to file
-        f = open("/home/pi/Desktop/test.log","a")
-#       f = open("/var/www/html/logs/test.log","a") #opens file with name of "test.txt"
+#       f = open("/home/pi/Desktop/test.log","a")
+        f = open("/var/www/html/logs/mainlog.log","a") #opens file with name of "test.txt"
         f.write("\n")
         f.write(str(temp))
         f.write("*")
@@ -63,7 +63,7 @@ while (count < waittime):
         f.write(str(visible))
         f.write("*")
         f.write(str(full_spectrum))
-        f.write("***timestamp***")
+        f.write("*")
         f.write(str(timeStamp))
         f.close()
         time.sleep(10)

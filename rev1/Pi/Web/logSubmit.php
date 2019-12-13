@@ -1,6 +1,6 @@
 <?php
 
-
+$filename = "logs/growlog.txt";
 $name = $_POST["element_1"];
 $text = $_POST["element_2"];
 
@@ -11,24 +11,13 @@ $d = date('d-m-Y');
 
 $time = $d.' | '. $t;
 
-
-
-$file_handle = fopen('../logs/growlog.txt', 'a') or die('Error opening file.');
-
-// The data to write
 $data = $time . "!@#!" . $name . "!@#!" . $text ."\n" ;
 
-// Write to the file
-fwrite($file_handle, $data);
+$myfile = fopen($filename, "a") or die("Unable to open file!");
 
-fclose($file_handle);
+fwrite($myfile,$data);
+fclose($myfile);
 
-
-
-
-
-
-
-
+header('Location:  index.php');
 
 ?>
