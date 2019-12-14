@@ -1,7 +1,6 @@
 <?php
-
-$files = scandir('pics', SCANDIR_SORT_DESCENDING);
-$newest_file = $files[0];
+include 'functions.php';
+$newest_file = ScanDirForNewPic('pics');
 
 echo "<img src='pics/";
 echo $newest_file;

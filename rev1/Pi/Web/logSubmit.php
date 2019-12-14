@@ -1,23 +1,14 @@
 <?php
+include 'functions.php';
 
-$filename = "logs/growlog.txt";
 $name = $_POST["element_1"];
 $text = $_POST["element_2"];
 
-date_default_timezone_set("America/Chicago");
+$time = getLocalTime("America/Chicago");
 
-$t =date("h:i:sa");
-$d = date('d-m-Y');
+$data = $time[0] . "|" . $time[1] . "!@#!" . $name . "!@#!" . $text ."\n" ;
 
-$time = $d.' | '. $t;
 
-$data = $time . "!@#!" . $name . "!@#!" . $text ."\n" ;
-
-$myfile = fopen($filename, "a") or die("Unable to open file!");
-
-fwrite($myfile,$data);
-fclose($myfile);
-
+AppendToFile("logs/growlog.txt",$data);
 header('Location:  index.php');
-
 ?>
