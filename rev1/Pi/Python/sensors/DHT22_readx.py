@@ -10,16 +10,16 @@ def dht22(switch="x"):
 	if humidity is not None and temperature is not None:
 		podhumidity = round(humidity,1)
 		podtemp = round(temperature,1)
-		if(switch = "t"):
+		if(switch == "t"):
 			return podtemp
-		if(switch = "h"):
+		if(switch == "h"):
 			return podhumidity
 			
 		
 	else:
 		print("Failed to retrieve data from humidity sensor") 
 		
-temp = dht22(t)
-hum = dht22(h)
+temp = dht22("t")
+hum = dht22("h")
 
 print(temp, " xxx ", hum)
