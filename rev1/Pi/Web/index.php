@@ -119,8 +119,7 @@ include 'functions.php';
 						</tr>
 						</form>
 						<?php 
-						dumpGrowLog('logs/growlog.txt');
-
+						dumpGrowLog('logs/growlog.log');
 						 ?>
 					</table>
 				</td>

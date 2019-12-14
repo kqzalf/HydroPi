@@ -9,6 +9,6 @@ $time = getLocalTime("America/Chicago");
 $data = $time[0] . "|" . $time[1] . "!@#!" . $name . "!@#!" . $text ."\n" ;
 
 
-AppendToFile("logs/growlog.txt",$data);
+AppendToFile("logs/growlog.log",$data);
 header('Location:  index.php');
 ?>

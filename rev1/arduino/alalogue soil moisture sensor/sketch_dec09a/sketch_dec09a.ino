@@ -8,7 +8,14 @@ void setup() {
 
 void loop() {
   val = analogRead(analogPin);  // read the input pin
-  Serial.println(val); // debug value
+  Serial.print("1");
+  Serial.print("*");
+  Serial.print("2"); // debug value
+  Serial.print("*");
+  Serial.print(val);
+  Serial.print("*");
+  Serial.print("4");
+  Serial.print("\n");
 delay(1000); 
 //577 to 581 dry 
 //291 - 293 submerged in water

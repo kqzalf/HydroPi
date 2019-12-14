@@ -118,7 +118,6 @@ echo "</table>";
 
 //append stuff to text files. should add some security here
 function AppendToFile($filename,$data){
-
 	$myfile = fopen($filename, "a") or die("Unable to open file!");
 
 	fwrite($myfile,$data);
