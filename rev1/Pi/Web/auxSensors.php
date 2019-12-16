@@ -1,6 +1,7 @@
 <?php
 include 'functions.php';
 $auxlog = readLastLine("logs/auxlog.log", "*");
+
 ?>
 	<table id="auxsensors" border="1">
 	  <tr>

@@ -26,6 +26,10 @@ include 'functions.php';
 	          $("#getPic").load("getPic.php");
 	      }, 1000);
 
+	      $("#handle").load("handle.php");
+	      var refreshId3 = setInterval(function() {
+	          $("#handle").load("handle.php");
+	      }, 1000);
 
 	   });
 	</script>
@@ -55,6 +59,9 @@ include 'functions.php';
 	   table{
 	      border="1";
 	   }
+		#handle{
+			   display: none;
+		}
 	</style>
 
 	<title>
@@ -62,6 +69,8 @@ include 'functions.php';
 </head>
 
 <body>
+					<div id="handle">
+					</div>
 	<div id="container">
 		<table border="1">
 			<tr>

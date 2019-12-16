@@ -108,7 +108,6 @@ function dumpGrowLog($filename){
 						                        fclose($fp);
 												}
 }
-
 /* 
 //example of use(must put tables in to make it work)
 echo "<table border='1'>";
@@ -187,4 +186,36 @@ $test = getSerialPorts();
 print_r ($test);
 
  */
+
+//get filesize, if its too big (in kb) clear logfile
+function fileclean($filename,$threshold){
+//check if file exists
+if(!is_file($filename)){
+	//create it
+	$file = fopen($filename,"w");
+    echo fwrite($file,"");
+    fclose($file); 
+}else
+	$fileSizeBytes = filesize($filename);
+	 
+	//Convert the bytes into KB.
+	$fileSizeKB = ceil($fileSizeBytes / 1024);
+	
+	//trouncate the text file
+	if($fileSizeKB > $threshold){
+		$fh = fopen( $filename, 'w' );
+		fclose($fh);
+		return "clear";
+	}else{
+		return $fileSizeKB;
+		}
+}
+	
+
+	
+/* 
+//example of use(checked logfile and truncates it if its too big)
+$test = fileclean("logs/mainlog.log","10");
+print $test;
+*/
 ?>
