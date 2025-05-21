@@ -103,8 +103,17 @@ A local dashboard is available to view the latest and historical sensor data. It
 ## License
 This project is licensed under the terms of the LICENSE file included in the repository.
 
+## CI/CD
+This project uses GitHub Actions for continuous integration. The workflow runs on every push and pull request to the `main` branch. It installs dependencies and runs tests using pytest.
+
 ## Linting
-To ensure code quality, pylint is used for linting Python code. Run the following command to lint the Python files:
+To ensure code quality, pylint is used for linting Python code. A `.pylintrc` file is included in the `rev1/Pi/Python/` directory to configure linting rules. Run the following command to lint the Python files:
 ```bash
 pylint rev1/Pi/Python/*.py
+```
+
+## Testing
+Tests are written using pytest and are located in `rev1/Pi/Python/test_sensors.py`. To run the tests, execute:
+```bash
+pytest rev1/Pi/Python/
 ``` 
