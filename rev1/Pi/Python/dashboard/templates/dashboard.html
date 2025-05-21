@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HydroPi Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; background: #f7f7f7; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 2px 8px #ccc; }
+        h1 { text-align: center; }
+        .latest { margin-bottom: 2em; }
+        .refresh-btn { float: right; }
+        .reading { font-size: 1.2em; margin: 0.5em 0; }
+        canvas { background: #fff; border-radius: 8px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>HydroPi Dashboard</h1>
+    <div class="latest">
+        <h2>Latest Readings <button class="refresh-btn" onclick="manualRefresh()">Refresh</button></h2>
+        {% if latest %}
+            <div class="reading">Temperature: <b>{{ latest.temp }}</b> °C</div>
+            <div class="reading">Humidity: <b>{{ latest.hum }}</b> %</div>
+            <div class="reading">CO₂: <b>{{ latest.co2 }}</b> ppm</div>
+            <div class="reading">Light (lux): <b>{{ latest.lux }}</b></div>
+            <div class="reading">Infrared: <b>{{ latest.ir }}</b></div>
+            <div class="reading">Visible: <b>{{ latest.vis }}</b></div>
+            <div class="reading">Full Spectrum: <b>{{ latest.full }}</b></div>
+            <div class="reading">Timestamp: <b>{{ latest.timestamp }}</b></div>
+            {% if latest.bme_temp is not none %}
+                <div class="reading">BME280 Temp: <b>{{ latest.bme_temp }}</b> °C</div>
+                <div class="reading">BME280 Humidity: <b>{{ latest.bme_hum }}</b> %</div>
+                <div class="reading">BME280 Pressure: <b>{{ latest.bme_pressure }}</b> hPa</div>
+            {% endif %}
+        {% else %}
+            <div>No data available.</div>
+        {% endif %}
+    </div>
+    <h2>Last 24 Hours (up to 144 readings)</h2>
+    <canvas id="historyChart" height="100"></canvas>
+</div>
+<script>
+let chart;
+function renderChart(data) {
+    const labels = data.map(d => d.timestamp);
+    const temp = data.map(d => d.temp);
+    const hum = data.map(d => d.hum);
+    const co2 = data.map(d => d.co2);
+    const lux = data.map(d => d.lux);
+    const bme_temp = data.map(d => d.bme_temp);
+    const bme_hum = data.map(d => d.bme_hum);
+    const bme_pressure = data.map(d => d.bme_pressure);
+    if (chart) chart.destroy();
+    chart = new Chart(document.getElementById('historyChart').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                { label: 'Temp (°C)', data: temp, borderColor: 'red', fill: false },
+                { label: 'Humidity (%)', data: hum, borderColor: 'blue', fill: false },
+                { label: 'CO₂ (ppm)', data: co2, borderColor: 'green', fill: false },
+                { label: 'Lux', data: lux, borderColor: 'orange', fill: false },
+                { label: 'BME280 Temp (°C)', data: bme_temp, borderColor: 'purple', fill: false },
+                { label: 'BME280 Humidity (%)', data: bme_hum, borderColor: 'teal', fill: false },
+                { label: 'BME280 Pressure (hPa)', data: bme_pressure, borderColor: 'brown', fill: false }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'top' } },
+            scales: { x: { display: false } }
+        }
+    });
+}
+function fetchHistory() {
+    fetch('/api/history').then(r => r.json()).then(data => {
+        renderChart(data);
+    });
+}
+function manualRefresh() {
+    location.reload();
+}
+setInterval(() => {
+    fetch('/api/latest').then(r => r.json()).then(latest => {
+        if (latest && latest.timestamp !== '{{ latest.timestamp if latest else "" }}') {
+            location.reload();
+        }
+    });
+}, 10000); // auto-refresh every 10s if new data
+window.onload = fetchHistory;
+</script>
+</body>
+</html> 
