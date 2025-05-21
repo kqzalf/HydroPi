@@ -1,3 +1,6 @@
 Flask>=2.0
 adafruit-circuitpython-bme280
+adafruit-circuitpython-ccs811
+adafruit-circuitpython-tsl2591
+adafruit-blinka
 pylint>=2.0 

@@ -1,6 +1,13 @@
-import pytest
+import sys
 from unittest.mock import patch, MagicMock
 import sensors
+
+sys.modules['board'] = MagicMock()
+sys.modules['busio'] = MagicMock()
+sys.modules['adafruit_ccs811'] = MagicMock()
+sys.modules['adafruit_tsl2591'] = MagicMock()
+sys.modules['adafruit_bme280'] = MagicMock()
+sys.modules['Adafruit_DHT'] = MagicMock()
 
 def test_dht22_returns_float_or_none():
     with patch('sensors.Adafruit_DHT.read_retry', return_value=(55.5, 22.2)):
